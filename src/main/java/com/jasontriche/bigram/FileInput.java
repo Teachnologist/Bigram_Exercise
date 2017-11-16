@@ -3,46 +3,47 @@ package com.jasontriche.bigram;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.activation.*;
+
 
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
 
+
 @ShellComponent
 public class FileInput {
+    String error_message = "";
+
+
+
     int d1 = 0;
     int d2 = 0;
     String statement = "";
     String lines = "";
     String word = "";
-    ArrayList words = new ArrayList();
+
 
     String directory = "";
 
 
     @ShellMethod(value="Run my bigram",key="bigram", prefix="*")
-    public String bigram() {
-     /*   if(promptNumber()) {
-            int calc = d1 - d2;
-            String sentence2 = statement + calc;
-            return sentence2;
-        }else{
-            return "no statement found";
-        }
-        */
-
-   /*  if(promptFile()){
-         return "true";
-     }else{
-         return "false";
-     }*/
-   if(promptFile()){
-       return word;
+    public void bigram() {
+   ArrayList word_array = promptFile();
+   if(!word_array.isEmpty()){
+       System.out.println("not empty?");
+       printbigram(word_array);
    }else{
-        return "no data available";
+       System.out.println("empty why?");
+       if(!tryagain()) {
+           System.out.println("quit");
+       }
    }
-
+        System.out.println("placeholder");
+        bigram();
     }
+
+    
 
     @ShellMethod(value="Get word",key="word#", prefix="*")
     public String getWord(int num){
@@ -52,16 +53,44 @@ public class FileInput {
             return "index too small";
         }
 
-        if(promptFile()){
-            if(num < words.size()) {
-                return (String)words.get(num);
-            }else{
-                return "selection too large";
-            }
+        ArrayList word_array = promptFile();
+        if(!word_array.isEmpty()){
+            return "all good";
 
         }else{
             return "no data available";
         }
+    }
+
+    private void printbigram(ArrayList <String> list){
+
+
+        for (String value : list) {
+            System.out.println(value);
+        }
+
+    }
+
+    private Boolean tryagain(){
+        System.out.println(error_message);
+        Console console = System.console();
+        String question = console.readLine("Would you like to try again? (yes/no): ");
+
+
+        switch(question.toLowerCase()){
+            case "yes":
+            case "y":
+                bigram();
+                break;
+            case "no":
+            case "n":
+                return false;
+            default:
+                tryagain();
+                break;
+        }
+        System.out.println("in try again");
+       return false;
     }
 
 
@@ -72,7 +101,6 @@ public class FileInput {
             BufferedReader br = new BufferedReader(text);
             System.out.print("Enter the message: ");
             statement = br.readLine();
-
             System.out.print("Enter the first digit: ");
             d1 = Integer.parseInt(br.readLine());
             System.out.print("Enter the second digit: ");
@@ -83,31 +111,47 @@ public class FileInput {
         }
     }
 
-    private Boolean promptFile() {
+    private ArrayList promptFile() {
+        MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+        ArrayList words = new ArrayList();
+        System.out.println("Please type the name of the text file to be analyzed");
+        System.out.println("If the file is not in this directory, please type the whole path");
+        System.out.println("Example: User/Directory/text.txt");
+        System.out.println("Warning: Only .txt files will be analyzed.");
         try {
-            System.out.print("Enter the file name with extension : ");
 
             Scanner input = new Scanner(System.in);
+            Console console = System.console();
 
-            File file = new File(input.nextLine());
+            String fileName = console.readLine("Type file name :> ");
+            String filetype = fileTypeMap.getContentType(fileName);
+            System.out.println(filetype);
 
-            input = new Scanner(file);
+            if(filetype.equals("text/plain")) {
+                File file = new File(fileName);
 
-            while (input.hasNextLine()) {
-                Scanner s2 = new Scanner(input.nextLine());
-                lines += s2;
-                while (s2.hasNext()) {
-                    String s = s2.next();
-                    word += s+"\n";
-                    words.add(s);
+
+                input = new Scanner(file);
+
+                while (input.hasNextLine()) {
+                    Scanner s2 = new Scanner(input.nextLine());
+                    while (s2.hasNext()) {
+                        String s = s2.next();
+                        System.out.println(s);
+                        words.add(s);
+                    }
                 }
-            }
-            input.close();
-        return true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
+                input.close();
 
+                return words;
+            }else{
+                error_message = "File type not accepted. Only text/plain files!";
+                return words;
+            }
+        } catch (Exception ex) {
+            System.out.print("File not found");
+            error_message = "File not found";
+            return words;
         }
     }
 }
