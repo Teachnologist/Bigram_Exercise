@@ -1,0 +1,32 @@
+<component name="libraryTable">
+  <library name="org.springframework.boot:spring-boot:Release" type="repository">
+    <properties maven-id="org.springframework.boot:spring-boot:RELEASE" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/spring-boot-2.0.0.M6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-core-5.0.1.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-jcl-5.0.1.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-context-5.0.1.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-aop-5.0.1.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-beans-5.0.1.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-expression-5.0.1.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/spring-boot-2.0.0.M6-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-core-5.0.1.RELEASE-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-jcl-5.0.1.RELEASE-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-context-5.0.1.RELEASE-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-aop-5.0.1.RELEASE-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-beans-5.0.1.RELEASE-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-expression-5.0.1.RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/spring-boot-2.0.0.M6-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-core-5.0.1.RELEASE-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-jcl-5.0.1.RELEASE-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-context-5.0.1.RELEASE-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-aop-5.0.1.RELEASE-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-beans-5.0.1.RELEASE-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-expression-5.0.1.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,4 +1,0 @@
-This is text
-the second
-and the third
-lines (fourth)

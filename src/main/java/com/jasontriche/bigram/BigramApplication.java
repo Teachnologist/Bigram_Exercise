@@ -9,5 +9,6 @@ public class BigramApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(BigramApplication.class, args);
+
 	}
 }
