@@ -14,8 +14,12 @@ import org.springframework.shell.standard.ShellMethod;
 @ShellComponent
 public class FileInput {
     String error_message = "";
+    Boolean restart = true;
 
-
+    private void setAll(){
+         error_message = "";
+         restart = true;
+    }
 
     int d1 = 0;
     int d2 = 0;
@@ -29,21 +33,30 @@ public class FileInput {
 
     @ShellMethod(value="Run my bigram",key="bigram", prefix="*")
     public void bigram() {
-   ArrayList word_array = promptFile();
-   if(!word_array.isEmpty()){
+   if(restart){
+       ArrayList word_array = promptFile();
        System.out.println("not empty?");
-       printbigram(word_array);
+       if(!word_array.isEmpty()) {
+           printbigram(word_array);
+           tryagain();
+       }else{
+           System.out.println("Your didn't have words");
+           System.out.println(error_message);
+           tryagain();
+       }
    }else{
-       System.out.println("empty why?");
-       if(!tryagain()) {
-           System.out.println("quit");
+       System.out.println("Thank you for participating in my bingram challenge!");
+       System.out.println("Please go to jasontriche.com");
+       setAll();
        }
    }
-        System.out.println("placeholder");
-        bigram();
-    }
 
-    
+
+
+
+
+
+
 
     @ShellMethod(value="Get word",key="word#", prefix="*")
     public String getWord(int num){
@@ -71,7 +84,7 @@ public class FileInput {
 
     }
 
-    private Boolean tryagain(){
+    private void tryagain(){
         System.out.println(error_message);
         Console console = System.console();
         String question = console.readLine("Would you like to try again? (yes/no): ");
@@ -80,17 +93,18 @@ public class FileInput {
         switch(question.toLowerCase()){
             case "yes":
             case "y":
-                bigram();
+                setAll();
                 break;
             case "no":
             case "n":
-                return false;
+                error_message = "You have opted to exit this program.";
+                restart = false;
             default:
-                tryagain();
+                setAll();
                 break;
         }
         System.out.println("in try again");
-       return false;
+        bigram();
     }
 
 
